@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} Books List {% endblock %}
+
+{% block content %}
+    <h1>Books list</h1><br>
+    <div id="menu">
+    <form>
+        Menu:
+        <input type="button" onclick="window.location.href='add_books';" value="Add book">
+    </form>
+
+    </div><br>
+    <div>
+        <form action="{% url 'books_list_view' %}" method="POST">
+            <table>
+                {% csrf_token %}
+                <tr>
+                    <td>Author: </td>
+                    <td>{{ search_form.author }}</td>
+                </tr>
+                <tr>
+                    <td>Title: </td>
+                    <td>{{ search_form.title }}</td>
+                </tr>
+                <tr>
+                    <td>Publication date from: </td>
+                    <td>{{ search_form.publication_date_from }}
+                    to: {{ search_form.publication_date_to }}</td>
+                </tr>
+                <tr>
+                    <td>Publication language: </td>
+                    <td>{{ search_form.publication_language }}</td>
+                </tr>
+            </table>
+            <input type="submit" value="Search">
+        </form>
+        {% if messages %}
+            {% for message in messages %}
+                {{ message }}
+            {% endfor %}
+        {% endif %}
+        <br>
+    </div>
+
+    <div>
+        <table id="books-table" border="1">
+            <th class="books-table-header">Title</th>
+            <th class="books-table-header">Author</th>
+            <th class="books-table-header">Publication date</th>
+            <th class="books-table-header">ISBN</th>
+            <th class="books-table-header">Number of pages</th>
+            <th class="books-table-header">Cover</th>
+            <th class="books-table-header">Publication language</th>
+                {% if results %}
+                    {% for book in results %}
+                        <tr class="books-table-row">
+                            <td class="books-table-data">{{ book.title }}</td>
+                            <td class="books-table-data">{{ book.author }}</td>
+                            <td class="books-table-data">{{ book.publication_date }}</td>
+                            <td class="books-table-data">{{ book.ISBN }}</td>
+                            <td class="books-table-data">{{ book.pages_count }}</td>
+                            <td class="books-table-data"><img src="{{ book.cover_link }}" alt="" width="150"
+                                                              height="250"/></td>
+                            <td class="books-table-data">{{ book.publication_language }}</td>
+                        </tr>
+                    {% endfor %}
+                {% else %}
+                    {% for book in books %}
+                        <tr class="books-table-row">
+                            <td class="books-table-data">{{ book.title }}</td>
+                            <td class="books-table-data">{{ book.author }}</td>
+                            <td class="books-table-data">{{ book.publication_date }}</td>
+                            <td class="books-table-data">{{ book.ISBN }}</td>
+                            <td class="books-table-data">{{ book.pages_count }}</td>
+                            <td class="books-table-data"><img src="{{ book.cover_link }}" alt="" width="150"
+                                                              height="250"/></td>
+                            <td class="books-table-data">{{ book.publication_language }}</td>
+                        </tr>
+                    {% endfor %}
+                {% endif %}
+        </table>
+    </div>
+{% endblock %}

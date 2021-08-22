@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} Add books from Google Book API to Books List {% endblock %}
+
+{% block content %}
+     <form action="" method="post">
+            {% csrf_token %}
+            {{ form.as_table }}
+            <input id="search-book-button" type="submit" name="search" value="Search">
+
+
+        <br>
+        {% if messages %}
+            {% for message in messages %}
+                {{ message }}
+            {% endfor %}
+        {% endif %}
+
+        {% if found_book %}
+            <div>
+                <table id="books-table" border="1">
+                    <th class="books-table-header">Title</th>
+                    <th class="books-table-header">Author</th>
+                    <th class="books-table-header">Publication date</th>
+                    <th class="books-table-header">ISBN</th>
+                    <th class="books-table-header">Number of pages</th>
+                    <th class="books-table-header">Cover</th>
+                    <th class="books-table-header">Publication language</th>
+                    <th class="books-table-header">Add book to database</th>
+                                <tr class="books-table-row">
+                                    <td class="books-table-data">{{ title }}</td>
+                                    <td class="books-table-data">{{ authors }}</td>
+                                    <td class="books-table-data">{{ publication_date }}</td>
+                                    <td class="books-table-data">{{ isbn }}</td>
+                                    <td class="books-table-data">{{ page_count }}</td>
+                                    <td class="books-table-data"><img src="{{ cover_link }}" alt="" width="150"
+                                                                      height="250"/></td>
+                                    <td class="books-table-data">{{ publication_language }}</td>
+                                    <td>
+                                            <input id="add-book" type="submit" name="add-book" value="Add book">
+                                    </td>
+                                </tr>
+                </table>
+            </div>
+        {% endif %}
+     </form>
+{% endblock %}

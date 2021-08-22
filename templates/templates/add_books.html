@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} Add books to Books List {% endblock %}
+
+{% block content %}
+     <form action="{% url 'add_books' %}" method="post">
+            {% csrf_token %}
+            {{ form.as_p}}
+            <input id="add-book-button" type="submit" name="add-book" value="Add book">
+     </form>
+    {% if messages %}
+        {% for message in messages %}
+            {{ message }}
+        {% endfor %}
+    {% endif %}
+{% endblock %}
