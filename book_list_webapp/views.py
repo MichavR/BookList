@@ -94,11 +94,7 @@ class AddBooksView(View):
             publication_language = form.cleaned_data["publication_language"].upper()
             form.save()
             messages.success(request, "Success! Book added.")
-            return render(
-                request,
-                "add_books.html",
-                {"form": form},
-            )
+            return redirect('add_books')
         else:
             messages.error(
                 request, "Oops! Something went wrong. Check form input and try again."
@@ -112,59 +108,54 @@ class AddBooksView(View):
 
 class APIBooksImport(View):
 
-    def __init__(self, **kwargs):
-        super().__init__()
-        self.title = None
-        self.authors = None
-        self.publication_date = None
-        self.isbn = None
-        self.page_count = None
-        self.cover_link = None
-        self.publication_language = None
-
     def get(self, request):
         form = SearchByISBN
         return render(request, "add_books_from_api.html", {"form": form})
 
     def post(self, request):
         form = SearchByISBN(request.POST)
-        if "search" in request.POST and form.is_valid():
-            self.isbn = form.cleaned_data["isbn"]
+        if form.is_valid():
+            isbn = form.cleaned_data["isbn"]
             api_response = requests.get(
-                f"https://www.googleapis.com/books/v1/volumes?q=isbn:{self.isbn}"
+                f"https://www.googleapis.com/books/v1/volumes?q=isbn:{isbn}"
             )
-            found_book = api_response.json()
-            volume_info = found_book["items"][0]["volumeInfo"]
-            self.title = volume_info["title"]
-            self.authors = ", ".join(volume_info["authors"])
-            self.publication_date = volume_info["publishedDate"]
-            self.page_count = int(volume_info["pageCount"])
-            self.cover_link = volume_info["imageLinks"]["thumbnail"]
-            self.publication_language = volume_info["language"].upper()
+        else:
+            messages.error(request, form.errors)
 
+        found_book = api_response.json()
+        volume_info = found_book["items"][0]["volumeInfo"]
+        title = volume_info["title"]
+        authors = ", ".join(volume_info["authors"])
+        publication_date = volume_info["publishedDate"]
+        page_count = int(volume_info["pageCount"])
+        cover_link = volume_info["imageLinks"]["thumbnail"]
+        publication_language = volume_info["language"].upper()
+
+        if "search" in request.POST and form.is_valid():
             ctx = {
                 "form": form,
                 "found_book": found_book,
-                "title": self.title,
-                "authors": self.authors,
-                "publication_date": self.publication_date,
-                "isbn": self.isbn,
-                "page_count": self.page_count,
-                "cover_link": self.cover_link,
-                "publication_language": self.publication_language,
+                "title": title,
+                "authors": authors,
+                "publication_date": publication_date,
+                "isbn": isbn,
+                "page_count": page_count,
+                "cover_link": cover_link,
+                "publication_language": publication_language,
             }
             return render(request, "add_books_from_api.html", ctx)
         elif "add-book" in request.POST:
             Books.objects.create(
-                title=self.title,
-                author=self.authors,
-                publication_date=self.publication_date,
-                pages_count=self.page_count,
-                ISBN=self.isbn,
-                cover_link=self.cover_link,
-                publication_language=self.publication_language,
+                title=title,
+                author=authors,
+                publication_date=publication_date,
+                pages_count=page_count,
+                ISBN=isbn,
+                cover_link=cover_link,
+                publication_language=publication_language,
             )
-            return redirect("books_list_view")
+            messages.success(request, "Success! Book added.")
+            return redirect('import_from_api')
         else:
             messages.error(
                 request, "Oops! Something went wrong. Check form input and try again."

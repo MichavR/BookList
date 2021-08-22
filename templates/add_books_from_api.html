@@ -4,18 +4,19 @@
 {% block title %} Add books from Google Book API to Books List {% endblock %}
 
 {% block content %}
-     <form action="" method="post">
-            {% csrf_token %}
-            {{ form.as_table }}
-            <input id="search-book-button" type="submit" name="search" value="Search">
-
-
-        <br>
         {% if messages %}
             {% for message in messages %}
                 {{ message }}
             {% endfor %}
         {% endif %}
+     <form action="" method="post">
+            {% csrf_token %}
+            {{ form.as_table }}
+            <input id="search-book-button" type="submit" name="search" value="Search">
+            <input type="button" onclick="window.location.href='/';" value="Back to book list">
+
+
+        <br>
 
         {% if found_book %}
             <div>
@@ -27,7 +28,7 @@
                     <th class="books-table-header">Number of pages</th>
                     <th class="books-table-header">Cover</th>
                     <th class="books-table-header">Publication language</th>
-                    <th class="books-table-header">Add book to database</th>
+                    <th class="books-table-header">Action</th>
                                 <tr class="books-table-row">
                                     <td class="books-table-data">{{ title }}</td>
                                     <td class="books-table-data">{{ authors }}</td>

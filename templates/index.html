@@ -9,6 +9,7 @@
     <form>
         Menu:
         <input type="button" onclick="window.location.href='add_books';" value="Add book">
+        <input type="button" onclick="window.location.href='import_from_api';" value="Import books">
     </form>
 
     </div><br>
@@ -17,12 +18,12 @@
             <table>
                 {% csrf_token %}
                 <tr>
-                    <td>Author: </td>
-                    <td>{{ search_form.author }}</td>
-                </tr>
-                <tr>
                     <td>Title: </td>
                     <td>{{ search_form.title }}</td>
+                </tr>
+                <tr>
+                    <td>Author(s): </td>
+                    <td>{{ search_form.author }}</td>
                 </tr>
                 <tr>
                     <td>Publication date from: </td>
