@@ -6,6 +6,6 @@ class Books(models.Model):
     author = models.CharField(max_length=256)
     publication_date = models.CharField(max_length=10, null=True)
     ISBN = models.CharField(max_length=13)
-    pages_count = models.IntegerField(null=True)
+    page_count = models.IntegerField(null=True)
     cover_link = models.CharField(max_length=512, null=True, blank=True)
     publication_language = models.CharField(max_length=2, null=True)

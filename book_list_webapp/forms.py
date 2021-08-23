@@ -20,7 +20,7 @@ class AddBooksForm(forms.ModelForm):
             "author",
             "publication_date",
             "ISBN",
-            "pages_count",
+            "page_count",
             "cover_link",
             "publication_language",
         ]
@@ -31,9 +31,12 @@ class SearchBooksForm(forms.Form):
     class constructor overwritten for 'publication_language' field to avoid migration issues
     caused by performing db query at class level
     """
+
     def __init__(self, *args, **kwargs):
         super(SearchBooksForm, self).__init__(*args, **kwargs)
-        self.fields['publication_language'] = forms.MultipleChoiceField(choices=language_choices(), required=False)
+        self.fields["publication_language"] = forms.MultipleChoiceField(
+            choices=language_choices(), required=False
+        )
 
     title = forms.CharField(label="Title", required=False)
     author = forms.CharField(label="Author", required=False)

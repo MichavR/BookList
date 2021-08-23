@@ -11,7 +11,7 @@ class BooksSerializer(serializers.ModelSerializer):
             "author",
             "publication_date",
             "ISBN",
-            "pages_count",
+            "page_count",
             "cover_link",
             "publication_language",
         ]

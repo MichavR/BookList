@@ -48,7 +48,7 @@ class Obj:
 
 class BooksListViewSet(viewsets.ViewSet):
     def list(self, request):
-        queryset = Books.objects.order_by("author", "title")
+        queryset = Books.objects.order_by("pk")
         serializer = BooksSerializer(queryset, many=True)
         return Response(serializer.data)
 
