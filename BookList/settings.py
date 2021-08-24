@@ -10,7 +10,12 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
+import environ
 from pathlib import Path
+
+env = environ.Env(DEBUG=(bool, False))
+
+environ.Env.read_env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,10 +25,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-h1r6($shmyjz69*h#b@#k7g%fbl89tewya&p#xrj&i7br72gy@"
+SECRET_KEY = env.str('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env.bool('DEBUG')
 
 ALLOWED_HOSTS = []
 
@@ -76,16 +81,7 @@ WSGI_APPLICATION = "BookList.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": "book_list_db",
-        "HOST": "localhost",
-        "PASSWORD": "#P4ssw0rd",
-        "USER": "postgres",
-        "PORT": 5432,
-    }
-}
+DATABASES = {'default': env.db('DATABASE_URL')}
 
 
 # Password validation

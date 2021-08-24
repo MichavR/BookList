@@ -92,7 +92,7 @@ target/
 celerybeat-schedule
 
 # dotenv
-.env
+BookList/.env
 
 # virtualenv
 .venv
