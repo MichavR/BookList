@@ -10,7 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
-from os import environ, path
+import os
 import django_heroku
 from pathlib import Path
 
@@ -22,12 +22,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = environ.get("SECRET_KEY")
+SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = environ.get("DEBUG")
+DEBUG = os.environ.get("DEBUG")
 
-ALLOWED_HOSTS = [environ.get("ALLOWED_HOSTS")]
+ALLOWED_HOSTS = [os.environ.get("ALLOWED_HOSTS")]
 
 
 # Application definition
@@ -78,7 +78,7 @@ WSGI_APPLICATION = "BookList.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-DATABASES = {"default": {environ.get("DATABASE_URL")}}
+DATABASES = {"default": {os.environ.get("DATABASE_URL")}}
 
 
 # Password validation
@@ -119,7 +119,7 @@ USE_TZ = True
 
 STATIC_URL = "/static/"
 
-STATIC_ROOT = path.join(BASE_DIR, "static")
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
