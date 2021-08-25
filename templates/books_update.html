@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} Edit book {% endblock %}
+
+{% block content %}
+<h2>Edit book:</h2>
+    <p>{{ books.title }} by {{ books.author }}</p>
+     <form action="" method="post">
+            {% csrf_token %}
+            <table>
+                <tr>
+                    <td>Title: </td>
+                    <td>{{ form.title }}</td>
+                </tr>
+                <tr>
+                    <td>Author(s): </td>
+                    <td>{{ form.author }}</td>
+                </tr>
+                <tr>
+                    <td>Publication date: </td>
+                    <td>{{ form.publication_date }}</td>
+                </tr>
+                <tr>
+                    <td>ISBN: </td>
+                    <td>{{ form.ISBN }}</td>
+                </tr>
+                <tr>
+                    <td>Page count: </td>
+                    <td>{{ form.page_count }}</td>
+                </tr>
+                <tr>
+                    <td>Cover link: </td>
+                    <td>{{ form.cover_link }}</td>
+                </tr>
+                <tr>
+                    <td>Publication language: </td>
+                    <td>{{ form.publication_language }}</td>
+                </tr>
+            </table>
+            <input id="update-book-button" type="submit" name="update-book" value="Update book">
+            <input type="button" onclick="window.location.href='/';" value="Back to book list">
+     </form>
+
+    {% if messages %}
+        {% for message in messages %}
+            {{ message }}
+        {% endfor %}
+    {% endif %}
+{% endblock %}

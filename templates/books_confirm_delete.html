@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>Confirm deletion</h2>
+    <form class="mid-form" method="post">
+        {% csrf_token %}
+        <p>Are you sure you want to delete {{ books.title }} by {{ books.author }}?</p>
+        <input id="delete-book-button" type="submit" name="delete-book" value="Delete book">
+        <input type="button" onclick="window.location.href='/';" value="Back to book list">
+    </form>
+{% endblock %}
