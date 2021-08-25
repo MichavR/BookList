@@ -1,14 +1,17 @@
 import requests
 from django.shortcuts import render, redirect
+from django.urls import reverse_lazy
 from django.views import View
 from django.contrib import messages
+from django.views.generic import UpdateView, DeleteView
+
 from .models import Books
 from .forms import AddBooksForm, SearchBooksForm, SearchByISBN
 
 
 class BooksListView(View):
     def get(self, request):
-        books = Books.objects.all()
+        books = Books.objects.all().order_by("title")
         search_form = SearchBooksForm
         ctx = {
             "books": books,
@@ -104,6 +107,20 @@ class AddBooksView(View):
                 "add_books.html",
                 {"form": form},
             )
+
+
+class BookUpdateView(UpdateView):
+    form_class = AddBooksForm
+    queryset = Books.objects.all()
+    template_name = "books_update.html"
+    template_name_suffix = "_update"
+    success_url = "/"
+
+
+class BookDeleteView(DeleteView):
+    model = Books
+    template_name = "books_confirm_delete.html"
+    success_url = reverse_lazy("books_list_view")
 
 
 class APIBooksImport(View):
