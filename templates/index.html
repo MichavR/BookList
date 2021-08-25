@@ -54,6 +54,7 @@
             <th class="books-table-header">Number of pages</th>
             <th class="books-table-header">Cover</th>
             <th class="books-table-header">Publication language</th>
+            <th class="books-table-header">Actions</th>
                 {% if results %}
                     {% for book in results %}
                         <tr class="books-table-row">
@@ -65,6 +66,8 @@
                             <td class="books-table-data"><img src="{{ book.cover_link }}" alt="" width="150"
                                                               height="250"/></td>
                             <td class="books-table-data">{{ book.publication_language }}</td>
+                            <td class="books-table-data"><a href={% url "book_update" book.pk %}>Edit</a>
+                                | <a href={% url "book_delete" book.pk %}>Delete</a></td>
                         </tr>
                     {% endfor %}
                 {% else %}
@@ -78,6 +81,8 @@
                             <td class="books-table-data"><img src="{{ book.cover_link }}" alt="" width="150"
                                                               height="250"/></td>
                             <td class="books-table-data">{{ book.publication_language }}</td>
+                            <td class="books-table-data"><a href={% url "book_update" book.pk %}>Edit</a>
+                            | <a href={% url "book_delete" book.pk %}>Delete</a></td>
                         </tr>
                     {% endfor %}
                 {% endif %}
