@@ -147,7 +147,7 @@ Application should be locally accessible at http://127.0.0.1:8000/ by default
   publication_date_from=YYYY-MM-DD
   ```
   ```
-  publication_date_to=YYY-MM-DD
+  publication_date_to=YYYY-MM-DD
   ```
   ```
   publication_language=
