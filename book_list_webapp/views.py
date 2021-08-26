@@ -140,15 +140,19 @@ class APIBooksImport(View):
             )
         else:
             return messages.error(request, form.errors)
-
-        found_book = api_response.json()
-        volume_info = found_book["items"][0]["volumeInfo"]
-        title = volume_info["title"]
-        authors = ", ".join(volume_info["authors"])
-        publication_date = volume_info["publishedDate"]
-        page_count = int(volume_info["pageCount"])
-        cover_link = volume_info["imageLinks"]["thumbnail"]
-        publication_language = volume_info["language"].upper()
+        try:
+            found_book = api_response.json()
+            volume_info = found_book["items"][0]["volumeInfo"]
+            title = volume_info["title"]
+            authors = ", ".join(volume_info["authors"])
+            publication_date = volume_info["publishedDate"]
+            page_count = int(volume_info["pageCount"])
+            cover_link = volume_info["imageLinks"]["thumbnail"]
+            publication_language = volume_info["language"].upper()
+        except KeyError:
+            form = SearchByISBN
+            messages.error(request, "Error. Try other ISBN or add book manually.")
+            return render(request, "add_books_from_api.html", {"form": form})
 
         if "search" in request.POST and form.is_valid():
             ctx = {
@@ -164,6 +168,11 @@ class APIBooksImport(View):
             }
             return render(request, "add_books_from_api.html", ctx)
         elif "add-book" in request.POST:
+            if len(publication_date) < 10:
+                publication_date = None
+            else:
+                pass
+
             Books.objects.create(
                 title=title,
                 author=authors,

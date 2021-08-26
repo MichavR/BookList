@@ -60,6 +60,11 @@
                         <tr class="books-table-row">
                             <td class="books-table-data">{{ book.title }}</td>
                             <td class="books-table-data">{{ book.author }}</td>
+                            {% if book.publication_date == None %}
+                                <td class="books-table-data">-</td>
+                            {% else %}
+                                <td class="books-table-data">{{ book.publication_date }}</td>
+                            {% endif %}
                             <td class="books-table-data">{{ book.publication_date }}</td>
                             <td class="books-table-data">{{ book.ISBN }}</td>
                             <td class="books-table-data">{{ book.page_count }}</td>
@@ -75,7 +80,11 @@
                         <tr class="books-table-row">
                             <td class="books-table-data">{{ book.title }}</td>
                             <td class="books-table-data">{{ book.author }}</td>
-                            <td class="books-table-data">{{ book.publication_date }}</td>
+                            {% if book.publication_date is None %}
+                                <td class="books-table-data">-</td>
+                            {% else %}
+                                <td class="books-table-data">{{ book.publication_date }}</td>
+                            {% endif %}
                             <td class="books-table-data">{{ book.ISBN }}</td>
                             <td class="books-table-data">{{ book.page_count }}</td>
                             <td class="books-table-data"><img src="{{ book.cover_link }}" alt="" width="150"
