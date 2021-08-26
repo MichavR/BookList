@@ -135,7 +135,7 @@ Application should be locally accessible at http://127.0.0.1:8000/ by default
   url: https://book-list-webapp.herokuapp.com/api/filter/?{value} \
   request: GET\
   no authentication needed\
-  returns book data acordingly to set filter value(s); filters can be combined (with '&' separator)
+  returns book data acordingly to set filter value(s); filters can be combined (with '&' separator) \
   acceptable values:
   ```
   author=
