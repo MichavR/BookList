@@ -15,7 +15,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, re_path
-from book_list_webapp.views import BooksListView, AddBooksView, BookUpdateView, BookDeleteView, APIBooksImport
+from book_list_webapp.views import (
+    BooksListView,
+    AddBooksView,
+    BookUpdateView,
+    BookDeleteView,
+    APIBooksImport
+)
 from book_list_API.views import BooksListViewSet, BooksFilteredView
 
 urlpatterns = [
