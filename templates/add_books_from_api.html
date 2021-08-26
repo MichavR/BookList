@@ -4,11 +4,6 @@
 {% block title %} Add books from Google Book API to Books List {% endblock %}
 
 {% block content %}
-        {% if messages %}
-            {% for message in messages %}
-                {{ message }}
-            {% endfor %}
-        {% endif %}
      <form action="" method="post">
             {% csrf_token %}
             {{ form.as_table }}
@@ -17,7 +12,12 @@
 
 
         <br>
-
+        {% if messages %}
+            {% for message in messages %}
+                {{ message }}
+            {% endfor %}
+        {% endif %}
+        <br>
         {% if found_book %}
             <div>
                 <table id="books-table" border="1">
