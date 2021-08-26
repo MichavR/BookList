@@ -7,6 +7,7 @@
 * [Installation](#installation)
 * [Setup](#setup)
 * [API endpoints](#api-endpoints)
+* [Automatic tests](#auto-tests)
 
 <a name="overview"></a>
 ## Overview
@@ -152,4 +153,17 @@ Application should be locally accessible at http://127.0.0.1:8000/ by default
   publication_language=
   # publication languages should be separated by ',' character, eg. ./api/filter/?publication_language=en,pl
   ```
-  
+
+<a name="auto-tests"></a>
+## Automatic tests
+
+Webapp and API have basic automatic tests prepared with pytest library
+
+Locations in app's root directory: 
+- BookList/book_list_API/tests/tests.py
+- BookList/book_list_webapp/tests/tests.py
+
+To run tests go to tests directory and run:
+```bash
+pytest tests.py
+```
