@@ -28,24 +28,18 @@ class BooksListView(View):
             publication_date_from = search_form.cleaned_data["publication_date_from"]
             publication_date_to = search_form.cleaned_data["publication_date_to"]
             publication_language = search_form.cleaned_data["publication_language"]
+
             if publication_date_from is None:
                 publication_date_from = "1000-01-01"
-            else:
-                pass
             if publication_date_to is None:
                 publication_date_to = "2999-12-31"
-            else:
-                pass
+
             if len(publication_language) == 0:
                 results = (
-                    Books.objects.filter(title__icontains=title)
-                    .filter(author__icontains=author)
-                    .filter(
-                        publication_date__range=[
+                    Books.objects.filter(title__icontains=title, author__icontains=author, publication_date__range=[
                             publication_date_from,
-                            publication_date_to,
-                        ]
-                    )
+                            publication_date_to
+                        ])
                 )
                 ctx = {
                     "search_form": search_form,
@@ -54,15 +48,10 @@ class BooksListView(View):
                 return render(request, "index.html", ctx)
             elif len(publication_language) != 0:
                 results = (
-                    Books.objects.filter(title__icontains=title)
-                    .filter(author__icontains=author)
-                    .filter(
-                        publication_date__range=[
+                    Books.objects.filter(title__icontains=title, author__icontains=author, publication_date__range=[
                             publication_date_from,
                             publication_date_to,
-                        ]
-                    )
-                    .filter(publication_language__in=publication_language)
+                        ], publication_language__in=publication_language)
                 )
                 ctx = {
                     "search_form": search_form,
@@ -170,8 +159,6 @@ class APIBooksImport(View):
         elif "add-book" in request.POST:
             if len(publication_date) < 10:
                 publication_date = None
-            else:
-                pass
 
             Books.objects.create(
                 title=title,

@@ -2,40 +2,39 @@
 {% load static %}
 
 {% block title %} Books List {% endblock %}
+{% load crispy_forms_tags %}
 
 {% block content %}
     <h1>Books list</h1><br>
     <div id="menu">
     <form>
         Menu:
-        <input type="button" onclick="window.location.href='add_books';" value="Add book">
-        <input type="button" onclick="window.location.href='import_from_api';" value="Import books">
+        <input type="button" class="btn-success" onclick="window.location.href='add_books';" value="Add book">
+        <input type="button" class="btn-success" onclick="window.location.href='import_from_api';" value="Import books">
     </form>
 
     </div><br>
     <div>
-        <form action="{% url 'books_list_view' %}" method="POST">
-            <table>
+        <form class="form-horizontal" action="{% url 'books_list_view' %}" method="POST">
                 {% csrf_token %}
-                <tr>
-                    <td>Title: </td>
-                    <td>{{ search_form.title }}</td>
-                </tr>
-                <tr>
-                    <td>Author(s): </td>
-                    <td>{{ search_form.author }}</td>
-                </tr>
-                <tr>
-                    <td>Publication date from: </td>
-                    <td>{{ search_form.publication_date_from }}
-                    to: {{ search_form.publication_date_to }}</td>
-                </tr>
-                <tr>
-                    <td>Publication language: </td>
-                    <td>{{ search_form.publication_language }}</td>
-                </tr>
-            </table>
-            <input type="submit" value="Search">
+                <div class="form-row">
+                    <div class="form-group col-sm-2 mb-0">
+                        {{ search_form.title|as_crispy_field }}
+                    </div>
+                    <div class="form-group col-sm-2 mb-0">
+                        {{ search_form.author|as_crispy_field }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2">
+                        {{ search_form.publication_date_from|as_crispy_field }}
+                    </div>
+                    <div class="col-sm-2">
+                        {{ search_form.publication_date_to|as_crispy_field }}
+                    </div>
+                </div>
+                    {{ search_form.publication_language|as_crispy_field }}
+            <input type="submit" class="btn-success" value="Search">
         </form>
         {% if messages %}
             {% for message in messages %}

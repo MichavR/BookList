@@ -20,7 +20,7 @@ from book_list_webapp.views import (
     AddBooksView,
     BookUpdateView,
     BookDeleteView,
-    APIBooksImport
+    APIBooksImport,
 )
 from book_list_API.views import BooksListViewSet, BooksFilteredView
 
