@@ -41,9 +41,14 @@ class SearchBooksForm(forms.Form):
     title = forms.CharField(label="Title", required=False)
     author = forms.CharField(label="Author", required=False)
     publication_date_from = forms.DateField(
-        label="Publication date from", required=False
+        widget=forms.widgets.DateInput(attrs={"type": "date"}),
+        label="Publication date from",
+        required=False
     )
-    publication_date_to = forms.DateField(label="to", required=False)
+    publication_date_to = forms.DateField(
+        widget=forms.widgets.DateInput(attrs={"type": "date"}),
+        label="to",
+        required=False)
 
 
 class SearchByISBN(forms.Form):
