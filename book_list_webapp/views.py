@@ -1,4 +1,5 @@
 import requests
+import datetime
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views import View
@@ -30,9 +31,9 @@ class BooksListView(View):
             publication_language = search_form.cleaned_data["publication_language"]
 
             if publication_date_from is None:
-                publication_date_from = "1000-01-01"
+                publication_date_from = datetime.datetime.strptime("1000-01-01", "%Y-%m-%d").date()
             if publication_date_to is None:
-                publication_date_to = "2999-12-31"
+                publication_date_to = datetime.datetime.strptime("2999-12-31", "%Y-%m-%d").date()
 
             if len(publication_language) == 0:
                 results = (

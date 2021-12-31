@@ -9,5 +9,3 @@ django-crispy-forms == 1.12.0
 Django == 3.2.6
 gunicorn == 20.1.0
 black == 21.12b0
-
-
