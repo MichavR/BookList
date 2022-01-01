@@ -158,7 +158,11 @@ class APIBooksImport(View):
             }
             return render(request, "add_books_from_api.html", ctx)
         elif "add-book" in request.POST:
-            if len(publication_date) < 10:
+            if len(publication_date) < 10 and "-" in publication_date:
+                publication_date = publication_date + "-01"
+            elif len(publication_date) < 10 and "-" not in publication_date:
+                publication_date = publication_date + "-01-01"
+            elif len(publication_date) == 0:
                 publication_date = None
 
             Books.objects.create(
