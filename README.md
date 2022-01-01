@@ -41,6 +41,7 @@ psycopg2-binary v. 2.9.1\
 djangorestframework v. 3.12.4\
 django-environ v. 0.4.5\
 django-heroku v. 0.3.1\
+django-crispy-forms v. 1.12.0\
 Django v. 3.2.6
 
 Clone repository to your local environment.
